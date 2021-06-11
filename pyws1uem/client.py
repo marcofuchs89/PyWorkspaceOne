@@ -3,9 +3,9 @@ import base64
 import logging
 import requests
 from pyws1uem.error import WorkspaceOneAPIError
-from pyws1uem.devices import Devices
-from .system.groups import Groups
-from .system.users import Users
+from pyws1uem.mdm.devices import Devices
+from pyws1uem.system.groups import Groups
+from pyws1uem.system.users import Users
 
 # Enabling debugging at http.client level (requests->urllib3->http.client)
 # you will see the REQUEST, including HEADERS and DATA, and RESPONSE with
