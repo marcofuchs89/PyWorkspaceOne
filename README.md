@@ -43,9 +43,11 @@ a.devices.get_id_by_alt_id(serialnumber='C09Z1TC8FJWT')
   * Send Commands To devices via Device ID or by Alt ID
   * Get Device FileVualt Recover Key
   * Get Security Info Sample by Device ID or Alt ID
-  * GET Bulk Security Info Sample
+  * Get Bulk Security Info Sample
   * Switch device From Staging User to End User
   * Get Network info Sample by Device ID
+  * Get a list of device enrollment tokens for a given Group ID
+  * Create a device enrollment token in a given OG
 * Users
   * Search for users by Username, Firstname, Lastname, Email,
   OrganizationGroupID, or Role
