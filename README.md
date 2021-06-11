@@ -15,23 +15,20 @@ example.py
 ```python
 from pyws1uem.client import WorkspaceOneAPI
 
-a = WorkspaceOneAPI(env='your_environment_url',
+wso = WorkspaceOneAPI(env='your_environment_url',
                     apikey='your_api_token_key',
                     username='username',
                     password='password')
 
 
 # Get the OG ID for a specified Group ID
-a.groups.get_id_from_groupid(groupid='testog')
+wso.groups.get_id_from_groupid(groupid='testog')
 
 # Create a Child OG for a specified Parent OG Group ID (Type/Name optional)
-a.groups.create_child_og(parent_groupid='testog', groupid='newog', og_type='Container', name='newog')
-
-# Get the Smart Group ID for a specified OG ID and Smart Group Name
-a.smartgroups.get_id_from_og_id(og_id=7, sg_name='apitest')
+wso.groups.create_child_og(parent_groupid='testog', groupid='newog', og_type='Container', name='newog')
 
 # Get a Device ID via an alternate device identifier
-a.devices.get_id_by_alt_id(serialnumber='C09Z1TC8FJWT')
+wso.devices.get_id_by_alt_id(serialnumber='C09Z1TC8FJWT')
 ```
 
 ## Supported Functionality
