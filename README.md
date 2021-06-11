@@ -60,23 +60,6 @@ a.devices.get_id_by_alt_id(serialnumber='C09Z1TC8FJWT')
   * Get SG Details
   * Get Devices that are included in SG
   * Add Device to SG Device Additions
-* Admins
-  * Search for admins by Username, Firstname, Lastname, Email,
-  OrganizationGroupID, or Role
-* User Groups
-  * Search for user groups
-  * Search for users within a user group
-* Tags
-  * Get Tag ID from Tag Name
-* Profiles
-  * Search for profiles by Type, Name, OG ID, Platform, Status, or Ownership
-  * Request Profile Install for a device
-* LDAP
-  * Create LDAP configurations
-* Feature Flags
-  * Set Feature Flag Status
-  * Get Feature Flag Status
-  * List all Feature Flags for a particular OG by UUID
 * Info
   * Get Environment Information
 
