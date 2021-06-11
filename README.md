@@ -57,13 +57,6 @@ a.devices.get_id_by_alt_id(serialnumber='C09Z1TC8FJWT')
   * Create Customer type OG (On-Prem only)
   * Create Child OG
   * Get UUID from OG ID
-* Smart Groups
-  * Get SG ID by Name and OG ID
-  * Get SG Details
-  * Get Devices that are included in SG
-  * Add Device to SG Device Additions
-* Info
-  * Get Environment Information
 
 ## Requirements
 
