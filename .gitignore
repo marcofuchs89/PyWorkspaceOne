@@ -73,6 +73,7 @@ pip-delete-this-directory.txt
 # Development Code
 _dev/
 /_dev/
+_dev.py
 
 # Unit test / coverage reports
 htmlcov/
