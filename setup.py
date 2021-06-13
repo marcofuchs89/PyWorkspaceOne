@@ -12,7 +12,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='pyws1uem',
-    version='0.0.5',
+    version='0.0.6',
     description=('PyWorkspaceOneUEM is a Python API library for VMware Workspace ONE UEM formerly known as AirWatch'),
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -32,5 +32,6 @@ setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.9',
+    install_requires=['requests'],
     keywords='uem airwatch api',
 )
