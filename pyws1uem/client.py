@@ -45,74 +45,121 @@ class WorkspaceOneAPI(object):
         self.devices = Devices(self)
         self.users = Users(self)
 
-    def get(self, module, path, version=None, params=None, header=None,
-            timeout=30):
+    def get(self, module, path, version=None, params=None, header=None, timeout=30):
         """
         Sends a GET request to the API. Returns the response object.
         """
         if header is None:
             header = {}
-        header.update(self._build_header(self.username, self.password,
-                                         self.apikey, header))
-        header.update({'Content-Type': 'application/json'})
+        header.update(
+            self._build_header(self.username, self.password, self.apikey, header)
+        )
+        header.update({"Content-Type": "application/json"})
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
-            r = requests.get(endpoint, params=params, headers=header,
-                             timeout=timeout)
+            r = requests.get(endpoint, params=params, headers=header, timeout=timeout)
             r = self._check_for_error(r)
             return r
         except WorkspaceOneAPIError as e:
             raise e
 
-    def post(self, module, path, version=None, params=None, data=None,
-             json=None, header=None, timeout=30):
+    def post(
+        self,
+        module,
+        path,
+        version=None,
+        params=None,
+        data=None,
+        json=None,
+        header=None,
+        timeout=30,
+    ):
         """
         Sends a POST request to the API. Returns the response object.
         """
         if header is None:
             header = {}
-        header.update(self._build_header(self.username, self.password,
-                                         self.apikey, header))
+        header.update(
+            self._build_header(self.username, self.password, self.apikey, header)
+        )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
-            r = requests.post(endpoint, params=params, data=data, json=json,
-                              headers=header, timeout=timeout)
+            r = requests.post(
+                endpoint,
+                params=params,
+                data=data,
+                json=json,
+                headers=header,
+                timeout=timeout,
+            )
             r = self._check_for_error(r)
             return r
         except WorkspaceOneAPIError as e:
             raise e
 
-    def put(self, module, path, version=None, params=None, data=None,
-            json=None, header=None, timeout=30):
+    def put(
+        self,
+        module,
+        path,
+        version=None,
+        params=None,
+        data=None,
+        json=None,
+        header=None,
+        timeout=30,
+    ):
         """
         Sends a PUT request to the API. Returns the response object.
         """
         if header is None:
             header = {}
-        header.update(self._build_header(self.username, self.password,
-                                         self.apikey, header))
+        header.update(
+            self._build_header(self.username, self.password, self.apikey, header)
+        )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
-            r = requests.put(endpoint, params=params, data=data, json=json,
-                             headers=header, timeout=timeout)
+            r = requests.put(
+                endpoint,
+                params=params,
+                data=data,
+                json=json,
+                headers=header,
+                timeout=timeout,
+            )
             r = self._check_for_error(r)
             return r
         except WorkspaceOneAPIError as e:
             raise e
 
-    def patch(self, module, path, version=None, params=None, data=None,
-              json=None, header=None, timeout=30):
+    def patch(
+        self,
+        module,
+        path,
+        version=None,
+        params=None,
+        data=None,
+        json=None,
+        header=None,
+        timeout=30,
+    ):
         """
         Sends a Patch request to the API. Returns the response object.
         """
         if header is None:
             header = {}
-        header.update(self._build_header(self.username, self.password,
-                                         self.apikey, header))
+        header.update(
+            self._build_header(self.username, self.password, self.apikey, header)
+        )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
-            r = requests.patch(endpoint, params=params, data=data, json=json,
-                               headers=header, timeout=timeout)
+            r = requests.patch(
+                endpoint,
+                params=params,
+                data=data,
+                json=json,
+                headers=header,
+                timeout=timeout,
+            )
             r = self._check_for_error(r)
             return r
         except WorkspaceOneAPIError as e:
@@ -120,19 +167,35 @@ class WorkspaceOneAPI(object):
 
     # NOQA
 
-    def delete(self, module, path, version=None, params=None, data=None,
-               json=None, header=None, timeout=30):
+    def delete(
+        self,
+        module,
+        path,
+        version=None,
+        params=None,
+        data=None,
+        json=None,
+        header=None,
+        timeout=30,
+    ):
         """
         Sends a DELETE request to the API. Returns the response object.
         """
         if header is None:
             header = {}
-        header.update(self._build_header(self.username, self.password,
-                                         self.apikey, header))
+        header.update(
+            self._build_header(self.username, self.password, self.apikey, header)
+        )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
-            r = requests.delete(endpoint, params=params, data=data, json=json,
-                                headers=header, timeout=timeout)
+            r = requests.delete(
+                endpoint,
+                params=params,
+                data=data,
+                json=json,
+                headers=header,
+                timeout=timeout,
+            )
             r = self._check_for_error(r)
             return r
         except WorkspaceOneAPIError as e:
@@ -144,10 +207,12 @@ class WorkspaceOneAPI(object):
         Checks the response for json data, then for an error, then for
         a status code
         """
-        if response.headers.get('Content-Type') in ('application/json',
-                                                    'application/json; charset=utf-8'):
+        if response.headers.get("Content-Type") in (
+            "application/json",
+            "application/json; charset=utf-8",
+        ):
             json = response.json()
-            if json.get('errorCode'):
+            if json.get("errorCode"):
                 raise WorkspaceOneAPIError(json_response=json)
             else:
                 return json
@@ -159,19 +224,19 @@ class WorkspaceOneAPI(object):
         """
         Builds the full url endpoint for the API request
         """
-        if not base_url.startswith('https://'):
-            base_url = 'https://' + base_url
-        if base_url.endswith('/'):
+        if not base_url.startswith("https://"):
+            base_url = "https://" + base_url
+        if base_url.endswith("/"):
             base_url = base_url[:-1]
         if version is None:
-            url = '{}/api/{}'.format(base_url, module)
+            url = "{}/api/{}".format(base_url, module)
         else:
-            url = '{}/api/v{}/{}'.format(base_url, version, module)
+            url = "{}/api/v{}/{}".format(base_url, version, module)
         if path:
-            if path.startswith('/'):
-                return url + '{}'.format(path)
+            if path.startswith("/"):
+                return url + "{}".format(path)
             else:
-                return url + '/{}'.format(path)
+                return url + "/{}".format(path)
         return url
 
     @staticmethod
@@ -182,9 +247,11 @@ class WorkspaceOneAPI(object):
         """
         if not header:
             header = {}
-        hashed_auth = base64.b64encode((username + ':' + password).encode('utf8')).decode("utf-8")
-        header.update({'Authorization': 'Basic {}'.format(hashed_auth)})
-        header.update({'aw-tenant-code': token})
+        hashed_auth = base64.b64encode(
+            (username + ":" + password).encode("utf8")
+        ).decode("utf-8")
+        header.update({"Authorization": "Basic {}".format(hashed_auth)})
+        header.update({"aw-tenant-code": token})
         if not header.get("Accept"):
-            header.update({'Accept': 'application/json'})
+            header.update({"Accept": "application/json"})
         return header
