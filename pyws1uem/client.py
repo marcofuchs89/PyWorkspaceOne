@@ -6,6 +6,7 @@ from pyws1uem.error import WorkspaceOneAPIError
 from pyws1uem.mdm.devices import Devices
 from pyws1uem.system.groups import Groups
 from pyws1uem.system.users import Users
+from pyws1uem.system.system import System
 
 # Enabling debugging at http.client level (requests->urllib3->http.client)
 # you will see the REQUEST, including HEADERS and DATA, and RESPONSE with
@@ -44,6 +45,7 @@ class WorkspaceOneAPI(object):
         self.groups = Groups(self)
         self.devices = Devices(self)
         self.users = Users(self)
+        self.system = System(self)
 
     def get(self, module, path, version=None, params=None, header=None, timeout=30):
         """
