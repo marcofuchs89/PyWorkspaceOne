@@ -128,5 +128,5 @@ class Users(System):
 
     def create_device_registration_to_user(self, user_id, register_device_details):
         path = '/users/{}/registerdevice'.format(user_id)
-        response = System._post(path=path, data=register_device_details)
+        response = System._post(self, path=path, data=register_device_details)
         return response
