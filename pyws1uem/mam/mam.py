@@ -23,3 +23,4 @@ class MAM(object):
         response = self.client.post(module=module, path=path, version=version,
                                     params=params, data=data, json=json,
                                     header=header)
+        return response
