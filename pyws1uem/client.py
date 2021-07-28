@@ -59,11 +59,11 @@ class WorkspaceOneAPI(object):
         header.update({"Content-Type": "application/json"})
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
-            r = requests.get(endpoint, params=params, headers=header, timeout=timeout)
-            r = self._check_for_error(r)
-            return r
-        except WorkspaceOneAPIError as e:
-            raise e
+            api_response = requests.get(endpoint, params=params, headers=header, timeout=timeout)
+            api_response = self._check_for_error(api_response)
+            return api_response
+        except WorkspaceOneAPIError as api_error:
+            raise api_error
 
     def post(
         self,
@@ -86,7 +86,7 @@ class WorkspaceOneAPI(object):
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
-            r = requests.post(
+            api_response = requests.post(
                 endpoint,
                 params=params,
                 data=data,
@@ -94,10 +94,10 @@ class WorkspaceOneAPI(object):
                 headers=header,
                 timeout=timeout,
             )
-            r = self._check_for_error(r)
-            return r
-        except WorkspaceOneAPIError as e:
-            raise e
+            api_response = self._check_for_error(api_response)
+            return api_response
+        except WorkspaceOneAPIError as api_error:
+            raise api_error
 
     def put(
         self,
@@ -120,7 +120,7 @@ class WorkspaceOneAPI(object):
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
-            r = requests.put(
+            api_response = requests.put(
                 endpoint,
                 params=params,
                 data=data,
@@ -128,10 +128,10 @@ class WorkspaceOneAPI(object):
                 headers=header,
                 timeout=timeout,
             )
-            r = self._check_for_error(r)
-            return r
-        except WorkspaceOneAPIError as e:
-            raise e
+            api_response = self._check_for_error(api_response)
+            return api_response
+        except WorkspaceOneAPIError as api_error:
+            raise api_error
 
     def patch(
         self,
@@ -154,7 +154,7 @@ class WorkspaceOneAPI(object):
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
-            r = requests.patch(
+            api_response = requests.patch(
                 endpoint,
                 params=params,
                 data=data,
@@ -162,10 +162,10 @@ class WorkspaceOneAPI(object):
                 headers=header,
                 timeout=timeout,
             )
-            r = self._check_for_error(r)
-            return r
-        except WorkspaceOneAPIError as e:
-            raise e
+            api_response = self._check_for_error(api_response)
+            return api_response
+        except WorkspaceOneAPIError as api_error:
+            raise api_error
 
     # NOQA
 
@@ -190,7 +190,7 @@ class WorkspaceOneAPI(object):
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
-            r = requests.delete(
+            api_response = requests.delete(
                 endpoint,
                 params=params,
                 data=data,
@@ -198,10 +198,10 @@ class WorkspaceOneAPI(object):
                 headers=header,
                 timeout=timeout,
             )
-            r = self._check_for_error(r)
-            return r
-        except WorkspaceOneAPIError as e:
-            raise e
+            api_response = self._check_for_error(api_response)
+            return api_response
+        except WorkspaceOneAPIError as api_error:
+            raise api_error
 
     @staticmethod
     def _check_for_error(response):
