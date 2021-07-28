@@ -1,5 +1,5 @@
-from .system import System
 import json
+from .system import System
 
 
 class Groups(System):

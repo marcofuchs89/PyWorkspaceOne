@@ -2,7 +2,7 @@ class MAM(object):
     """
     Base MAM class
 
-    Workspace ONE UEM REST APIs allows you to manage the end-to-end functionalities of Mobile Application Management (MAM) features. 
+    Workspace ONE UEM REST APIs allows you to manage the end-to-end functionalities of Mobile Application Management (MAM) features.
     Using these APIs, you can upload internal and public applications,
     assign, and manage applications on the devices.
     """

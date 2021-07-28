@@ -29,6 +29,9 @@ requests_log.propagate = True
 
 
 class WorkspaceOneAPI(object):
+    """
+    Class for building a WorkspaceONE UEM API Object
+    """
     def __init__(self, env: str, apikey: str, username: str, password: str):
         """
         Initialize an AirWatchAPI Client Object.
