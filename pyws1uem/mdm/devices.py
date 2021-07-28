@@ -104,14 +104,14 @@ class Devices(MDM):
         command = 'command={}'.format(command)
         return MDM._post(self, path=path, params=command)
 
-    def send_commands_by_id(self, command, searchby, id):
+    def send_commands_by_id(self, command, searchby, device_id):
         """
         Commands for devices selecting device based on id
         """
         _path = '/devices/commands'
         _query = 'command={}&searchBy={}&id={}'.format(str(command),
                                                        str(searchby),
-                                                       str(id))
+                                                       str(device_id))
         return MDM._post(self, path=_path, params=_query)
 
     def get_details_by_device_id(self, device_id):
@@ -135,13 +135,13 @@ class Devices(MDM):
         _path = '/devices/{}/security'.format(device_id)
         return MDM._get(self, path=_path)
 
-    def get_security_info_by_alternate_id(self, searchby, id):
+    def get_security_info_by_alternate_id(self, searchby, alternate_id):
         """
         Processes the device ID to retrieve the security
         information sample related info by Alternate ID
         """
         _path = '/devices/security'
-        _params = 'searchby={}&id={}'.format(searchby, id)
+        _params = 'searchby={}&id={}'.format(searchby, alternate_id)
         return MDM._get(self, path=_path, params=_params)
 
     def get_bulk_security_info(self, organization_group_id, user_name,
@@ -181,7 +181,7 @@ class Devices(MDM):
         """
         return MDM._delete(self, path='/devices/{}'.format(device_id))
 
-    def delete_customattribute_by_id(self, device_id, customAttributes):
+    def delete_customattribute_by_id(self, device_id, custom_attributes):
         """
         Delete a device customattribute.
 
@@ -191,11 +191,11 @@ class Devices(MDM):
         """
         _path = "/devices/{}/customattributes".format(device_id)
         _data = {"CustomAttributes": []}
-        for item in customAttributes.split(","):
+        for item in custom_attributes.split(","):
             _data["CustomAttributes"].append({"Name": item})
         return MDM._delete(self, path=_path, json=_data)
 
-    def delete_customattribute_by_alt_id(self, serialnumber, customAttributes):
+    def delete_customattribute_by_alt_id(self, serialnumber, custom_attributes):
         """
         Delete a device customattribute by it's serial number.
 
@@ -208,7 +208,7 @@ class Devices(MDM):
         _path = "/devices/serialnumber/{}/customattributes".format(
             serialnumber)
         _data = {"CustomAttributes": []}
-        for item in customAttributes.split(","):
+        for item in custom_attributes.split(","):
             _data["CustomAttributes"].append({"Name": item})
         return MDM._delete(self, path=_path, json=_data)
 
