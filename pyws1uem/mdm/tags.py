@@ -2,14 +2,12 @@ from .mdm import MDM
 
 class Tags(MDM):
     """
-    Base MDM class
+    Base Tags Class
 
-    Workspace ONE UEM REST APIs allows you to manage
-    all the functionalities of Mobile Device Management (MDM).
-    The functionalities that are included but not limited to are device commands,
-    retrieval of compliance, profile, network, location, and event log details.
+    Contains REST-API Calls to add Devices to specific tags to trigger dependent actions,
+    such as installing profiles, apps or trigger compliance actions.
     """
     def __init__(self, client):
-        self.client = client
+        MDM.__init__(self, client)
 
 # TODO: Implement the tagging resources ...
