@@ -11,3 +11,42 @@ class Tags(MDM):
         MDM.__init__(self, client)
 
 # TODO: Implement the tagging resources ...
+
+    def add_device_tag(self, tag_id, device_id):
+        """[summary]
+
+        Args:
+            kwargs ([type]): [description]
+        """
+        # API Call to follow
+        path = f'/tags/{tag_id}/adddevices'
+        device_to_add = {
+            "BulkValues": {
+                "Value": [
+                    device_id
+                    ]
+                    }
+                    }
+        response = MDM._post(self, path=path, json=device_to_add)
+        return response
+
+    def remove_device_tag(self, tag_id, device_id):
+        """[summary]
+
+        Args:
+            kwargs ([type]): [description]
+        """
+        # API Call to follow
+        path = f'/tags/{tag_id}/removedevices'
+        device_to_add = {
+            "BulkValues": {
+                "Value": [
+                    device_id
+                    ]
+                    }
+                    }
+        response = MDM._post(self, path=path, json=device_to_add)
+        #if response['FailedItems'] >= 1:
+        #    return response
+        #else:
+        return response
