@@ -7,6 +7,8 @@ from pyws1uem.mdm.devices import Devices
 from pyws1uem.system.groups import Groups
 from pyws1uem.system.users import Users
 from pyws1uem.system.info import Info
+from pyws1uem.mdm.tags import Tags
+
 
 # Enabling debugging at http.client level (requests->urllib3->http.client)
 # you will see the REQUEST, including HEADERS and DATA, and RESPONSE with
@@ -49,6 +51,8 @@ class WorkspaceOneAPI(object):
         self.devices = Devices(self)
         self.users = Users(self)
         self.info = Info(self)
+        self.tags = Tags(self)
+        
 
     def get(self, module, path, version=None, params=None, header=None, timeout=30):
         """
