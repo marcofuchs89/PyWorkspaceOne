@@ -15,10 +15,14 @@ class Tags(MDM):
 # TODO: Implement the tagging resources ...
 
     def add_device_tag(self, tag_id, device_id):
-        """[summary]
+        """Add a tag to a given device
 
         Args:
-            kwargs ([type]): [description]
+            tag_id (string): The ID of the Tag in WorkspaceOneUEM
+            device_id (string): The ID of the Device in WorkspaceOneUEM
+
+        Returns:
+            json: Status of the executed command (Accepted/Failed)
         """
         path = f'/tags/{tag_id}/adddevices'
         device_to_add = {
