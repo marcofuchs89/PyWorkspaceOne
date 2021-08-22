@@ -10,4 +10,5 @@ The section "implemented" concludes all already developed API Routines and Calls
 
 ## Implemented
 
-... tbd
+* 0.0.9
+  * Added methods add_device_tag() and remove_device_tag() under MDM.Tags()
