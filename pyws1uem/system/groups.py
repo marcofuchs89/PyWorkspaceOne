@@ -1,5 +1,5 @@
-from .system import System
 import json
+from .system import System
 
 
 class Groups(System):
@@ -21,14 +21,14 @@ class Groups(System):
         response = self.search(groupid=str(groupid))
         return response['LocationGroups'][0]['Id']['Value']
 
-    def get_groupid_from_id(self, id):
+    def get_groupid_from_id(self, groupid):
         """Returns the Group ID for a given ID"""
-        response = System._get(self, path='/groups/{}'.format(id))
+        response = System._get(self, path='/groups/{}'.format(groupid))
         return response['GroupId']
 
-    def get_uuid_from_groupid(self, id):
+    def get_uuid_from_groupid(self, groupid):
         """Returns the OG UUID for a given Group ID"""
-        response = System._get(self, path='/groups/{}'.format(id))
+        response = System._get(self, path='/groups/{}'.format(groupid))
         return response['Uuid']
 
     def create(self, parent_id, ogdata):

@@ -6,6 +6,9 @@ from pyws1uem.error import WorkspaceOneAPIError
 from pyws1uem.mdm.devices import Devices
 from pyws1uem.system.groups import Groups
 from pyws1uem.system.users import Users
+from pyws1uem.system.info import Info
+from pyws1uem.mdm.tags import Tags
+
 
 # Enabling debugging at http.client level (requests->urllib3->http.client)
 # you will see the REQUEST, including HEADERS and DATA, and RESPONSE with
@@ -28,6 +31,9 @@ requests_log.propagate = True
 
 
 class WorkspaceOneAPI(object):
+    """
+    Class for building a WorkspaceONE UEM API Object
+    """
     def __init__(self, env: str, apikey: str, username: str, password: str):
         """
         Initialize an AirWatchAPI Client Object.
@@ -44,6 +50,9 @@ class WorkspaceOneAPI(object):
         self.groups = Groups(self)
         self.devices = Devices(self)
         self.users = Users(self)
+        self.info = Info(self)
+        self.tags = Tags(self)
+        
 
     def get(self, module, path, version=None, params=None, header=None, timeout=30):
         """
@@ -57,11 +66,11 @@ class WorkspaceOneAPI(object):
         header.update({"Content-Type": "application/json"})
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
-            r = requests.get(endpoint, params=params, headers=header, timeout=timeout)
-            r = self._check_for_error(r)
-            return r
-        except WorkspaceOneAPIError as e:
-            raise e
+            api_response = requests.get(endpoint, params=params, headers=header, timeout=timeout)
+            api_response = self._check_for_error(api_response)
+            return api_response
+        except WorkspaceOneAPIError as api_error:
+            raise api_error
 
     def post(
         self,
@@ -84,7 +93,7 @@ class WorkspaceOneAPI(object):
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
-            r = requests.post(
+            api_response = requests.post(
                 endpoint,
                 params=params,
                 data=data,
@@ -92,10 +101,10 @@ class WorkspaceOneAPI(object):
                 headers=header,
                 timeout=timeout,
             )
-            r = self._check_for_error(r)
-            return r
-        except WorkspaceOneAPIError as e:
-            raise e
+            api_response = self._check_for_error(api_response)
+            return api_response
+        except WorkspaceOneAPIError as api_error:
+            raise api_error
 
     def put(
         self,
@@ -118,7 +127,7 @@ class WorkspaceOneAPI(object):
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
-            r = requests.put(
+            api_response = requests.put(
                 endpoint,
                 params=params,
                 data=data,
@@ -126,10 +135,10 @@ class WorkspaceOneAPI(object):
                 headers=header,
                 timeout=timeout,
             )
-            r = self._check_for_error(r)
-            return r
-        except WorkspaceOneAPIError as e:
-            raise e
+            api_response = self._check_for_error(api_response)
+            return api_response
+        except WorkspaceOneAPIError as api_error:
+            raise api_error
 
     def patch(
         self,
@@ -152,7 +161,7 @@ class WorkspaceOneAPI(object):
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
-            r = requests.patch(
+            api_response = requests.patch(
                 endpoint,
                 params=params,
                 data=data,
@@ -160,10 +169,10 @@ class WorkspaceOneAPI(object):
                 headers=header,
                 timeout=timeout,
             )
-            r = self._check_for_error(r)
-            return r
-        except WorkspaceOneAPIError as e:
-            raise e
+            api_response = self._check_for_error(api_response)
+            return api_response
+        except WorkspaceOneAPIError as api_error:
+            raise api_error
 
     # NOQA
 
@@ -188,7 +197,7 @@ class WorkspaceOneAPI(object):
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
-            r = requests.delete(
+            api_response = requests.delete(
                 endpoint,
                 params=params,
                 data=data,
@@ -196,10 +205,10 @@ class WorkspaceOneAPI(object):
                 headers=header,
                 timeout=timeout,
             )
-            r = self._check_for_error(r)
-            return r
-        except WorkspaceOneAPIError as e:
-            raise e
+            api_response = self._check_for_error(api_response)
+            return api_response
+        except WorkspaceOneAPIError as api_error:
+            raise api_error
 
     @staticmethod
     def _check_for_error(response):

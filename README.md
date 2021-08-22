@@ -45,6 +45,9 @@ wso.devices.get_id_by_alt_id(serialnumber='C09Z1TC8FJWT')
   * Get Network info Sample by Device ID
   * Get a list of device enrollment tokens for a given Group ID
   * Create a device enrollment token in a given OG
+* Tags
+  * Add a Tag to a Device
+  * Remove a Tag from a Device
 * Users
   * Search for users by Username, Firstname, Lastname, Email,
   OrganizationGroupID, or Role
