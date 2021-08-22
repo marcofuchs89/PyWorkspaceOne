@@ -14,7 +14,7 @@ class Tags(MDM):
 
 # TODO: Implement the tagging resources ...
 
-    def add_device_tag(self, tag_id, device_id):
+    def add_device_tag(self, tag_id: str, device_id: str):
         """Add a tag to a given device
 
         Args:
@@ -35,11 +35,15 @@ class Tags(MDM):
         response = MDM._post(self, path=path, json=device_to_add)
         return response
 
-    def remove_device_tag(self, tag_id, device_id):
-        """[summary]
+    def remove_device_tag(self, tag_id: str, device_id: str):
+        """Remove a tag from a given device
 
         Args:
-            kwargs ([type]): [description]
+            tag_id (string): The ID of the Tag in WorkspaceOneUEM
+            device_id (string): The ID of the Device in WorkspaceOneUEM
+
+        Returns:
+            json: Status of the executed command (Accepted/Failed)
         """
         path = f'/tags/{tag_id}/removedevices'
         device_to_add = {
