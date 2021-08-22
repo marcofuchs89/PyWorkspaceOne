@@ -1,6 +1,10 @@
 class MAM(object):
     """
-    Application manamgment 
+    Base MAM class
+
+    Workspace ONE UEM REST APIs allows you to manage the end-to-end functionalities of Mobile Application Management (MAM) features.
+    Using these APIs, you can upload internal and public applications,
+    assign, and manage applications on the devices.
     """
 
     def __init__(self, client):
@@ -19,3 +23,4 @@ class MAM(object):
         response = self.client.post(module=module, path=path, version=version,
                                     params=params, data=data, json=json,
                                     header=header)
+        return response
