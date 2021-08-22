@@ -6,7 +6,8 @@ The section "implemented" concludes all already developed API Routines and Calls
 
 ## Future
 
-... tbd
+* 0.0.10
+  * Add methods to check for installed applications (Status: Installed/Managed/Removed)
 
 ## Implemented
 
