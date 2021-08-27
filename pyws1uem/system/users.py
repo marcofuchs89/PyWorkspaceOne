@@ -1,7 +1,14 @@
+"""
+Module to manage core functionalities related to Users in WorkspaceONE UEM
+"""
+
 from .system import System
 
 
 class Users(System):
+    """
+    Class to manage user related methods/functions, inherited from the base system class
+    """
 
     def __init__(self, client):
         System.__init__(self, client)
@@ -127,6 +134,16 @@ class Users(System):
         return System._delete(self, path=path)
 
     def create_device_registration_to_user(self, user_id, register_device_details):
+        """
+        Register a device for a specific user
+
+        Args:
+            user_id (string)
+            register_device_details (dict)
+
+        Returns:
+            API response (dict)
+        """
         path = '/users/{}/registerdevice'.format(user_id)
         response = System._post(self, path=path, data=register_device_details)
         return response

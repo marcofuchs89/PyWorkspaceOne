@@ -1,3 +1,7 @@
+"""
+Module to manage device tags (add and remove)
+"""
+
 from .mdm import MDM
 
 
@@ -11,8 +15,6 @@ class Tags(MDM):
 
     def __init__(self, client):
         MDM.__init__(self, client)
-
-# TODO: Implement the tagging resources ...
 
     def add_device_tag(self, tag_id: str, device_id: str):
         """Add a tag to a given device
