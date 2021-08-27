@@ -2,7 +2,8 @@ class MDM(object):
     """
     Base MDM class
 
-    Workspace ONE UEM REST APIs allows you to manage all the functionalities of Mobile Device Management (MDM).
+    Workspace ONE UEM REST APIs allows you
+    to manage all the functionalities of Mobile Device Management (MDM).
     The functionalities that are included but not limited to are device commands,
     retrieval of compliance, profile, network, location, and event log details.
     """
