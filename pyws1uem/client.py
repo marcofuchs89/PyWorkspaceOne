@@ -1,3 +1,13 @@
+"""WorkspaceOneAPI Client Module
+
+The module handles all basic methods to interact with the API.
+Basic HTTP Method calls are defined here (GET, POST, PUT, PATCH, DELETE)
+and static methods for error checking, building the client object and constructing header values.
+
+In Case of errors in the response the requests will raise an exception
+using the WorkspaceOneAPIError Class.
+"""
+
 from __future__ import print_function, absolute_import
 import base64
 import logging
