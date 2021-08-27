@@ -32,7 +32,7 @@ HTTPConnection.debuglevel = 0
 
 # TODO: programing using library should be able to set logging level
 # TODO: Implement logging to using config https://docs.python.org/3/howto/logging.html#configuring-logging
-# TODO: sett logging correclty for a library https://docs.python.org/3/howto/logging.html#configuring-logging-for-a-library
+# TODO: sett logging correctly for a library https://docs.python.org/3/howto/logging.html#configuring-logging-for-a-library
 logging.basicConfig()
 logging.getLogger().setLevel(logging.DEBUG)
 requests_log = logging.getLogger("requests.packages.urllib3")
@@ -44,6 +44,7 @@ class WorkspaceOneAPI(object):
     """
     Class for building a WorkspaceONE UEM API Object
     """
+
     def __init__(self, env: str, apikey: str, username: str, password: str):
         """
         Initialize an AirWatchAPI Client Object.
@@ -62,7 +63,6 @@ class WorkspaceOneAPI(object):
         self.users = Users(self)
         self.info = Info(self)
         self.tags = Tags(self)
-        
 
     def get(self, module, path, version=None, params=None, header=None, timeout=30):
         """
@@ -71,12 +71,14 @@ class WorkspaceOneAPI(object):
         if header is None:
             header = {}
         header.update(
-            self._build_header(self.username, self.password, self.apikey, header)
+            self._build_header(self.username, self.password,
+                               self.apikey, header)
         )
         header.update({"Content-Type": "application/json"})
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
-            api_response = requests.get(endpoint, params=params, headers=header, timeout=timeout)
+            api_response = requests.get(
+                endpoint, params=params, headers=header, timeout=timeout)
             api_response = self._check_for_error(api_response)
             return api_response
         except WorkspaceOneAPIError as api_error:
@@ -99,7 +101,8 @@ class WorkspaceOneAPI(object):
         if header is None:
             header = {}
         header.update(
-            self._build_header(self.username, self.password, self.apikey, header)
+            self._build_header(self.username, self.password,
+                               self.apikey, header)
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
@@ -133,7 +136,8 @@ class WorkspaceOneAPI(object):
         if header is None:
             header = {}
         header.update(
-            self._build_header(self.username, self.password, self.apikey, header)
+            self._build_header(self.username, self.password,
+                               self.apikey, header)
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
@@ -167,7 +171,8 @@ class WorkspaceOneAPI(object):
         if header is None:
             header = {}
         header.update(
-            self._build_header(self.username, self.password, self.apikey, header)
+            self._build_header(self.username, self.password,
+                               self.apikey, header)
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
@@ -203,7 +208,8 @@ class WorkspaceOneAPI(object):
         if header is None:
             header = {}
         header.update(
-            self._build_header(self.username, self.password, self.apikey, header)
+            self._build_header(self.username, self.password,
+                               self.apikey, header)
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
