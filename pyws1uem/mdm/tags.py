@@ -1,3 +1,7 @@
+"""
+Module to manage device tags (add and remove)
+"""
+
 from .mdm import MDM
 
 
