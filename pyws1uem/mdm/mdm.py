@@ -1,3 +1,10 @@
+"""
+Module to access the WorkspaceONE UEM /mdm API Endpoint
+
+This module sets basic parameters that are needed to
+correctly connect to /mdm API Endpoints
+"""
+
 class MDM(object):
     """
     Base MDM class
