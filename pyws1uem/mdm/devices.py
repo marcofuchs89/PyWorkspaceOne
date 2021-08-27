@@ -1,3 +1,7 @@
+"""
+Module to manage devices in the WorkspaceONE /mdm context.
+"""
+
 from .mdm import MDM
 
 
