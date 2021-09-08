@@ -56,6 +56,7 @@ wso.devices.get_id_by_alt_id(serialnumber='C09Z1TC8FJWT')
 * Tags
   * Add a Tag to a Device
   * Remove a Tag from a Device
+  * Check if a tag is already applied
 * Users
   * Search for users by Username, Firstname, Lastname, Email,
   OrganizationGroupID, or Role
