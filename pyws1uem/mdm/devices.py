@@ -88,7 +88,7 @@ class Devices(MDM):
         return response
 
     def get_id_by_alt_id(self, serialnumber=None, macaddress=None, udid=None,
-                         imeinumber=None, easid=None):
+                         imeinumber=None, easid=None) -> int:
         response = self.get_details_by_alt_id(
             serialnumber, macaddress, udid, imeinumber, easid)
         return response['Id']['Value']
