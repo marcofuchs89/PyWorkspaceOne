@@ -58,7 +58,7 @@ class Tags(MDM):
         response = MDM._post(self, path=path, json=device_to_add)
         return response
 
-    def check_device_tag(self, tag_id: str, device_id: str = None, device_uuid: str = None):
+    def check_device_tag(self, tag_id: str, device_id: str = None, device_uuid: str = None) -> bool:
         """Get a list of devices for the given tags and check
         if a specific device, defined by it's UUID, has the tag already assigned
 
@@ -73,6 +73,7 @@ class Tags(MDM):
         path = f'tags/{tag_id}/devices'
         response = MDM._get(self, path=path)
         for device in response['Device']:
-            if str(device['DeviceId']) == device_id or device['DeviceUuid'] == device_uuid:
+            if str(device['DeviceId']) == str(device_id) or \
+            str(device['DeviceUuid']) == str(device_uuid):
                 return True
         return False
