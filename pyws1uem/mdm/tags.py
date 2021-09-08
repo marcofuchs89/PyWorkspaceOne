@@ -57,3 +57,22 @@ class Tags(MDM):
         }
         response = MDM._post(self, path=path, json=device_to_add)
         return response
+
+    def check_device_tag(self, tag_id: str, device_id: str = None, device_uuid: str = None):
+        """Get a list of devices for the given tags and check
+        if a specific device, defined by it's UUID, has the tag already assigned
+
+        Args:
+            tag_id (str): The ID of the Tag in WorkspaceOneUEM
+            device_id (str): The DeviceID of the Device in WorkspaceOneUEM (default: None)
+            device_uuid (str): The UUID of the Device in WorkspaceOneUEM (default: None)
+
+        Returns:
+            [bool]: True if the tag is assigned / False if not
+        """
+        path = f'tags/{tag_id}/devices'
+        response = MDM._get(self, path=path)
+        for device in response['Device']:
+            if str(device['DeviceId']) == device_id or device['DeviceUuid'] == device_uuid:
+                return True
+        return False
