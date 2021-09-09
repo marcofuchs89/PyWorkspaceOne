@@ -64,8 +64,10 @@ class Tags(MDM):
 
         Args:
             tag_id (str): The ID of the Tag in WorkspaceOneUEM
-            device_id (str): The DeviceID of the Device in WorkspaceOneUEM (default: None)
-            device_uuid (str): The UUID of the Device in WorkspaceOneUEM (default: None)
+            device_id (str, optional): The DeviceID of the Device in WorkspaceOneUEM.
+                                        Defaults to None.
+            device_uuid (str, optional): The UUID of the Device in WorkspaceOneUEM.
+                                        Defaults to None.
 
         Returns:
             [bool]: True if the tag is assigned / False if not
@@ -73,7 +75,7 @@ class Tags(MDM):
         path = f'tags/{tag_id}/devices'
         response = MDM._get(self, path=path)
         for device in response['Device']:
-            if str(device['DeviceId']) == str(device_id) or \
-            str(device['DeviceUuid']) == str(device_uuid):
+            if (str(device['DeviceId']) == str(device_id)
+                    or str(device['DeviceUuid']) == str(device_uuid)):
                 return True
         return False

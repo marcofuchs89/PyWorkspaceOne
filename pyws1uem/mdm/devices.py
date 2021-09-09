@@ -230,7 +230,8 @@ class Devices(MDM):
 
     def create_enrollment_token(self, organization_group_uuid, registration_record):
         """
-        Creates a device enrollment token in the given organization unit with a given registration record (data)
+        Creates a device enrollment token in the given organization unit
+        with a given registration record (data)
         """
         _path = "/groups/{}/enrollment-tokens".format(organization_group_uuid)
         return MDM._post(self, path=_path, json=registration_record)
