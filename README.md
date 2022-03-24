@@ -15,10 +15,13 @@ example.py
 ```python
 from pyws1uem.client import WorkspaceOneAPI
 
-wso = WorkspaceOneAPI(env='your_environment_url',
-                    apikey='your_api_token_key',
-                    username='username',
-                    password='password')
+wso = WorkspaceOneAPI(
+    env='your_environment_url',
+    auth_url='authentication_server_url',
+    client_id='workspaceone_client_id',
+    client_secret='workspaceon_client_secret',
+    aw_tenant_code='workspaceone_api_key'
+)
 
 
 # Get the OG ID for a specified Group ID
@@ -30,6 +33,8 @@ wso.groups.create_child_og(parent_groupid='testog', groupid='newog', og_type='Co
 # Get a Device ID via an alternate device identifier
 wso.devices.get_id_by_alt_id(serialnumber='C09Z1TC8FJWT')
 ```
+
+*A list of available OAuth authentication servers is available [here](https://docs.vmware.com/en/VMware-Workspace-ONE-UEM/services/UEM_ConsoleBasics/GUID-BF20C949-5065-4DCF-889D-1E0151016B5A.html)
 
 ## Supported Functionality
 
