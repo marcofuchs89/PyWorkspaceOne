@@ -51,9 +51,10 @@ class WorkspaceOneAPI(object):
         Initialize an AirWatchAPI Client Object.
 
         :param  env: Base URL of the AirWatch API Service
-                client_id: Client ID
-                client_secret: Client Secret
-                aw_tenant_code: aw-tenant-code
+                auth_url: Authentication server URL. List can be found here: https://docs.vmware.com/en/VMware-Workspace-ONE-UEM/services/UEM_ConsoleBasics/GUID-BF20C949-5065-4DCF-889D-1E0151016B5A.html
+                client_id: Generated in OAuth Client Management in Workspace One
+                client_secret: Generated in OAuth Client Management in Workspace One
+                aw_tenant_code: API key from Workspace One
         """
         self.env = env
         self.auth_url = auth_url
@@ -270,8 +271,7 @@ class WorkspaceOneAPI(object):
         if self.auth_url.endswith("/"):
             self.auth_url = self.auth_url[:-1]
         if not self.auth_url.endswith("connect/token"):
-            # TODO raise API exception
-            pass
+            raise ValueError(f'{self.auth_url} does not appear to be a proper authentication URL')
 
     def _generate_access_token(self, header=None):
         if not header:
