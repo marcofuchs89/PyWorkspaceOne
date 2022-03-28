@@ -19,7 +19,7 @@ wso = WorkspaceOneAPI(
     env='your_environment_url',
     auth_url='authentication_server_url',
     client_id='workspaceone_client_id',
-    client_secret='workspaceon_client_secret',
+    client_secret='workspaceone_client_secret',
     aw_tenant_code='workspaceone_api_key'
 )
 
