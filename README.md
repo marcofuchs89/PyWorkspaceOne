@@ -70,3 +70,5 @@ wso.devices.get_id_by_alt_id(serialnumber='C09Z1TC8FJWT')
 ## Requirements
 
 * [requests](http://docs.python-requests.org/en/latest/)
+
+![Lines of code](https://shields.devops.telekom.de:/tokei/lines/github.com/marcofuchs89/PyWorkspaceOne)
