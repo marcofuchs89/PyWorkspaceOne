@@ -1,3 +1,7 @@
+"""
+Module to manage device tags (add and remove)
+"""
+
 from .mdm import MDM
 
 
@@ -11,8 +15,6 @@ class Tags(MDM):
 
     def __init__(self, client):
         MDM.__init__(self, client)
-
-# TODO: Implement the tagging resources ...
 
     def add_device_tag(self, tag_id: str, device_id: str):
         """Add a tag to a given device
@@ -55,3 +57,25 @@ class Tags(MDM):
         }
         response = MDM._post(self, path=path, json=device_to_add)
         return response
+
+    def check_device_tag(self, tag_id: str, device_id: str = None, device_uuid: str = None) -> bool:
+        """Get a list of devices for the given tags and check
+        if a specific device, defined by it's UUID, has the tag already assigned
+
+        Args:
+            tag_id (str): The ID of the Tag in WorkspaceOneUEM
+            device_id (str, optional): The DeviceID of the Device in WorkspaceOneUEM.
+                                        Defaults to None.
+            device_uuid (str, optional): The UUID of the Device in WorkspaceOneUEM.
+                                        Defaults to None.
+
+        Returns:
+            [bool]: True if the tag is assigned / False if not
+        """
+        path = f'tags/{tag_id}/devices'
+        response = MDM._get(self, path=path)
+        for device in response['Device']:
+            if (str(device['DeviceId']) == str(device_id)
+                    or str(device['DeviceUuid']) == str(device_uuid)):
+                return True
+        return False

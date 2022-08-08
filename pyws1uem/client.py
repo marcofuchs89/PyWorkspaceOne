@@ -1,13 +1,23 @@
+"""WorkspaceOneAPI Client Module
+
+The module handles all basic methods to interact with the API.
+Basic HTTP Method calls are defined here (GET, POST, PUT, PATCH, DELETE)
+and static methods for error checking, building the client object and constructing header values.
+
+In Case of errors in the response the requests will raise an exception
+using the WorkspaceOneAPIError Class.
+"""
+
 from __future__ import print_function, absolute_import
 import base64
 import logging
 import requests
-from pyws1uem.error import WorkspaceOneAPIError
-from pyws1uem.mdm.devices import Devices
-from pyws1uem.system.groups import Groups
-from pyws1uem.system.users import Users
-from pyws1uem.system.info import Info
-from pyws1uem.mdm.tags import Tags
+from .error import WorkspaceOneAPIError
+from .mdm.devices import Devices
+from .system.groups import Groups
+from .system.users import Users
+from .system.info import Info
+from .mdm.tags import Tags
 
 
 # Enabling debugging at http.client level (requests->urllib3->http.client)
@@ -22,7 +32,7 @@ HTTPConnection.debuglevel = 0
 
 # TODO: programing using library should be able to set logging level
 # TODO: Implement logging to using config https://docs.python.org/3/howto/logging.html#configuring-logging
-# TODO: sett logging correclty for a library https://docs.python.org/3/howto/logging.html#configuring-logging-for-a-library
+# TODO: sett logging correctly for a library https://docs.python.org/3/howto/logging.html#configuring-logging-for-a-library
 logging.basicConfig()
 logging.getLogger().setLevel(logging.DEBUG)
 requests_log = logging.getLogger("requests.packages.urllib3")
@@ -34,6 +44,7 @@ class WorkspaceOneAPI(object):
     """
     Class for building a WorkspaceONE UEM API Object
     """
+
     def __init__(self, env: str, apikey: str, username: str, password: str):
         """
         Initialize an AirWatchAPI Client Object.
@@ -52,7 +63,6 @@ class WorkspaceOneAPI(object):
         self.users = Users(self)
         self.info = Info(self)
         self.tags = Tags(self)
-        
 
     def get(self, module, path, version=None, params=None, header=None, timeout=30):
         """
@@ -61,12 +71,14 @@ class WorkspaceOneAPI(object):
         if header is None:
             header = {}
         header.update(
-            self._build_header(self.username, self.password, self.apikey, header)
+            self._build_header(self.username, self.password,
+                               self.apikey, header)
         )
         header.update({"Content-Type": "application/json"})
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
-            api_response = requests.get(endpoint, params=params, headers=header, timeout=timeout)
+            api_response = requests.get(
+                endpoint, params=params, headers=header, timeout=timeout)
             api_response = self._check_for_error(api_response)
             return api_response
         except WorkspaceOneAPIError as api_error:
@@ -89,7 +101,8 @@ class WorkspaceOneAPI(object):
         if header is None:
             header = {}
         header.update(
-            self._build_header(self.username, self.password, self.apikey, header)
+            self._build_header(self.username, self.password,
+                               self.apikey, header)
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
@@ -123,7 +136,8 @@ class WorkspaceOneAPI(object):
         if header is None:
             header = {}
         header.update(
-            self._build_header(self.username, self.password, self.apikey, header)
+            self._build_header(self.username, self.password,
+                               self.apikey, header)
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
@@ -157,7 +171,8 @@ class WorkspaceOneAPI(object):
         if header is None:
             header = {}
         header.update(
-            self._build_header(self.username, self.password, self.apikey, header)
+            self._build_header(self.username, self.password,
+                               self.apikey, header)
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
@@ -193,7 +208,8 @@ class WorkspaceOneAPI(object):
         if header is None:
             header = {}
         header.update(
-            self._build_header(self.username, self.password, self.apikey, header)
+            self._build_header(self.username, self.password,
+                               self.apikey, header)
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:

@@ -34,20 +34,29 @@ wso.devices.get_id_by_alt_id(serialnumber='C09Z1TC8FJWT')
 ## Supported Functionality
 
 * Devices
+  * Search devices with specific criteria
+    * V1 Endpoint criteria > user, model, platform, lastseen, ownership, lgid(OrganizationGroup ID), compliantstatus, seensince
+    * V2 Endpoint criteria > user, model, platform, lastseen, ownership, lgid, compliance_status, seen_since
+    * V3 Endpoint criteria > user, model_identifier, device_type, last_seen, ownership, organization_group_uuid, compliance_status, seen_since
+  * Return the full device details by an Extensive Device Search
   * Get Device Details by Alt ID (Macaddress, Udid, Serialnumber, ImeiNumber, EasId)
   * Get Device ID by Alt ID (Macaddress, Udid, Serialnumber, ImeiNumber, EasId)
   * Clear Device Passcode
+  * Get Device Details by Device ID
   * Send Commands To devices via Device ID or by Alt ID
   * Get Device FileVualt Recover Key
   * Get Security Info Sample by Device ID or Alt ID
   * Get Bulk Security Info Sample
   * Switch device From Staging User to End User
   * Get Network info Sample by Device ID
+  * Delete a Device by Device ID
+  * Delete a Device Custom Attribute by Device ID or Alternate ID
   * Get a list of device enrollment tokens for a given Group ID
   * Create a device enrollment token in a given OG
 * Tags
   * Add a Tag to a Device
   * Remove a Tag from a Device
+  * Check if a tag is already applied
 * Users
   * Search for users by Username, Firstname, Lastname, Email,
   OrganizationGroupID, or Role
@@ -61,3 +70,5 @@ wso.devices.get_id_by_alt_id(serialnumber='C09Z1TC8FJWT')
 ## Requirements
 
 * [requests](http://docs.python-requests.org/en/latest/)
+
+![Lines of code](https://shields.devops.telekom.de:/tokei/lines/github.com/marcofuchs89/PyWorkspaceOne)

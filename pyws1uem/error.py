@@ -1,4 +1,20 @@
+"""
+WorkspaceOneAPIError Module
+--
+Handles error messages returned by the API as a json response
+and filters the response to return a human readable error code and message.
+"""
+
 class WorkspaceOneAPIError(Exception):
+    """WorkspaceONEAPIError
+
+    Args:
+        Exception (json): Exception message in json formatting
+                            returned by an API Call
+
+    Returns:
+        An easy to read error message in the format "Error #{error_code}: {message}"
+    """
     def __init__(self, json_response=None):
         if json_response is None:
             pass
