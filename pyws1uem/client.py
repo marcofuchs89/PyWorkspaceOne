@@ -9,9 +9,10 @@ using the WorkspaceOneAPIError Class.
 """
 
 from __future__ import print_function, absolute_import
-import base64
 import logging
 import requests
+import time
+from email.utils import formatdate
 from .error import WorkspaceOneAPIError
 from .mdm.devices import Devices
 from .system.groups import Groups
@@ -45,19 +46,24 @@ class WorkspaceOneAPI(object):
     Class for building a WorkspaceONE UEM API Object
     """
 
-    def __init__(self, env: str, apikey: str, username: str, password: str):
+    def __init__(self, env: str, auth_url: str, client_id: str, client_secret: str, aw_tenant_code: str):
         """
         Initialize an AirWatchAPI Client Object.
 
         :param  env: Base URL of the AirWatch API Service
-                apikey: API Key to authorize
-                username: Admin username
-                password: corresponding pasword
+                auth_url: Authentication server URL. List can be found here: https://docs.vmware.com/en/VMware-Workspace-ONE-UEM/services/UEM_ConsoleBasics/GUID-BF20C949-5065-4DCF-889D-1E0151016B5A.html
+                client_id: Generated in OAuth Client Management in Workspace One
+                client_secret: Generated in OAuth Client Management in Workspace One
+                aw_tenant_code: API key from Workspace One
         """
         self.env = env
-        self.apikey = apikey
-        self.username = username
-        self.password = password
+        self.auth_url = auth_url
+        self.client_id = client_id
+        self.client_secret = client_secret
+        self.aw_tenant_code = aw_tenant_code
+        self.access_token = None
+        self.token_acquire_time = 0
+        self.token_expiry_seconds = 3600
         self.groups = Groups(self)
         self.devices = Devices(self)
         self.users = Users(self)
@@ -71,8 +77,7 @@ class WorkspaceOneAPI(object):
         if header is None:
             header = {}
         header.update(
-            self._build_header(self.username, self.password,
-                               self.apikey, header)
+            self._build_header(header)
         )
         header.update({"Content-Type": "application/json"})
         endpoint = self._build_endpoint(self.env, module, path, version)
@@ -101,8 +106,7 @@ class WorkspaceOneAPI(object):
         if header is None:
             header = {}
         header.update(
-            self._build_header(self.username, self.password,
-                               self.apikey, header)
+            self._build_header(header)
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
@@ -136,8 +140,7 @@ class WorkspaceOneAPI(object):
         if header is None:
             header = {}
         header.update(
-            self._build_header(self.username, self.password,
-                               self.apikey, header)
+            self._build_header(header)
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
@@ -171,8 +174,7 @@ class WorkspaceOneAPI(object):
         if header is None:
             header = {}
         header.update(
-            self._build_header(self.username, self.password,
-                               self.apikey, header)
+            self._build_header(header)
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
@@ -208,8 +210,7 @@ class WorkspaceOneAPI(object):
         if header is None:
             header = {}
         header.update(
-            self._build_header(self.username, self.password,
-                               self.apikey, header)
+            self._build_header(header)
         )
         endpoint = self._build_endpoint(self.env, module, path, version)
         try:
@@ -264,19 +265,52 @@ class WorkspaceOneAPI(object):
                 return url + "/{}".format(path)
         return url
 
-    @staticmethod
-    def _build_header(username, password, token, header=None):
+    def _verify_auth_url(self):
+        if not self.auth_url.startswith("https://"):
+            self.auth_url = "https://" + self.auth_url
+        if self.auth_url.endswith("/"):
+            self.auth_url = self.auth_url[:-1]
+        if not self.auth_url.endswith("connect/token"):
+            raise ValueError(f'{self.auth_url} does not appear to be a proper authentication URL')
+
+    def _generate_access_token(self, header=None):
+        if not header:
+            header = {}
+        self._verify_auth_url()
+        header.update({"Content-Type": "application/x-www-form-urlencoded"})
+        data = {
+            "client_id": self.client_id,
+            "client_secret": self.client_secret,
+            "grant_type": "client_credentials"
+        }
+        try:
+            api_response = requests.post(
+                self.auth_url,
+                data=data,
+                headers=header,
+            )
+            api_response_code = self._check_for_error(api_response)
+            if api_response_code == 200:
+                self.access_token = api_response.json()["access_token"]
+                self.token_acquire_time = time.perf_counter()
+        except WorkspaceOneAPIError as api_error:
+            raise api_error
+
+    def _build_header(self, header=None):
         """
-        Build the header with base64 login, AW API token,
-        and accept a json response
+        Build the header with OAuth. Built in monitoring of the
+        access token expiry. It will only get a new token after
+        the current one expires.
         """
         if not header:
             header = {}
-        hashed_auth = base64.b64encode(
-            (username + ":" + password).encode("utf8")
-        ).decode("utf-8")
-        header.update({"Authorization": "Basic {}".format(hashed_auth)})
-        header.update({"aw-tenant-code": token})
+        if not self.access_token or time.perf_counter() - self.token_acquire_time > self.token_expiry_seconds:
+            self._generate_access_token(header)
+        if header.get("Content-Type"):
+            del header["Content-Type"]
+        header.update({"Authorization": f"Bearer {self.access_token}"})
+        header.update({"aw-tenant-code": self.aw_tenant_code})
+        header.update({'Date': formatdate(timeval=None, localtime=False, usegmt=True)})
         if not header.get("Accept"):
             header.update({"Accept": "application/json"})
         return header
